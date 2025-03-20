@@ -276,10 +276,6 @@ int main()
 ## RESULT:
 The program is executed successfully.
 
-## RESULT:
-The program is executed successfully
-
-
 ---------------------------
 
 # Hill Cipher
