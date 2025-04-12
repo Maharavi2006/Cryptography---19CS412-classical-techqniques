@@ -519,81 +519,88 @@ The above code is executed successfully.
 
 -----------------------------------------------------------------------
 
-# Rail Fence Cipher
-Rail Fence Cipher using with different key values
+# Ex--5-Rail-Fence-Program
+
+# IMPLEMENTATION OF RAIL FENCE – ROW & COLUMN TRANSFORMATION TECHNIQUE
+# NAME:MAHALAKSHMI.R
+# REGISTER NUMBER: 212223230117
 
 # AIM:
 
-To develop a simple C program to implement Rail Fence Cipher.
+# To write a C program to implement the rail fence transposition technique.
 
-## DESIGN STEPS:
+# DESCRIPTION:
 
-### Step 1:
+In the rail fence cipher, the plain text is written downwards and diagonally on successive "rails" of an imaginary fence, then moving up when we reach the bottom rail. When we reach the top rail, the message is written downwards again until the whole plaintext is written out. The message is then read off in rows.
 
-Design of Rail Fence Cipher algorithnm 
+# ALGORITHM:
 
-### Step 2:
+STEP-1: Read the Plain text.
+STEP-2: Arrange the plain text in row columnar matrix format.
+STEP-3: Now read the keyword depending on the number of columns of the plain text.
+STEP-4: Arrange the characters of the keyword in sorted order and the corresponding columns of the plain text.
+STEP-5: Read the characters row wise or column wise in the former order to get the cipher text.
 
-Implementation using C or pyhton code
+# PROGRAM
+```c
+#include <stdio.h>
+#include <string.h>
+#include <stdlib.h>
 
-### Step 3:
+int main() {
+    int i, j, len, rails, count, code[100][1000];
+    char str[1000];
 
-Testing algorithm with different key values. 
-ALGORITHM DESCRIPTION:
-In the rail fence cipher, the plaintext is written downwards and diagonally on successive "rails" of an imaginary fence, then moving up when we reach the bottom rail. When we reach the top rail, the message is written downwards again until the whole plaintext is written out. The message is then read off in rows.
+    printf("Enter a Secret Message\n");
+    fgets(str, sizeof(str), stdin); // Use fgets to prevent buffer overflows
+    str[strcspn(str, "\n")] = 0; // Remove trailing newline
 
-## PROGRAM:
+    len = strlen(str);
 
-PROGRAM:
-#include<stdio.h> #include<string.h> #include<stdlib.h> main()
-{
-int i,j,len,rails,count,code[100][1000]; char str[1000];
-printf("Enter a Secret Message\n"); gets(str);
-len=strlen(str);
-printf("Enter number of rails\n"); scanf("%d",&rails); for(i=0;i<rails;i++)
-{
-for(j=0;j<len;j++)
-{
-code[i][j]=0;
+    printf("Enter number of rails\n");
+    scanf("%d", &rails);
+
+    // Initialize the code array with 0s
+    for (i = 0; i < rails; i++) {
+        for (j = 0; j < len; j++) {
+            code[i][j] = 0;
+        }
+    }
+
+    count = 0;
+    j = 0;
+
+    while (j < len) {
+        if (count % 2 == 0) {
+            for (i = 0; i < rails && j < len; i++) {
+                code[i][j] = (int)str[j];
+                j++;
+            }
+        } else {
+            for (i = rails - 2; i > 0 && j < len; i--) {
+                code[i][j] = (int)str[j];
+                j++;
+            }
+        }
+        count++;
+    }
+
+    // Print the encoded message
+    for (i = 0; i < rails; i++) {
+        for (j = 0; j < len; j++) {
+            if (code[i][j] != 0) {
+                printf("%c", (char)code[i][j]);
+            }
+        }
+    }
+    printf("\n");
+
+    return 0;
 }
-}
-count=0; j=0;
-while(j<len)
-{
-if(count%2==0)
-{
-for(i=0;i<rails;i++)
-{
-//strcpy(code[i][j],str[j]);
-code[i][j]=(int)str[j]; j++;
-}
+```
+# OUTPUT
+![image](https://github.com/user-attachments/assets/2b0beb0b-4c4a-4338-b3d3-c71ca3fe2ab8)
 
-}
-else
-{
- 
-for(i=rails-2;i>0;i--)
-{
-code[i][j]=(int)str[j]; j++;
-}
-}
+# RESULT
+Hence, Encryption of a message using Rail Fence cipher is implemented and executed successfully.
 
-count++;
-}
-
-for(i=0;i<rails;i++)
-{
-for(j=0;j<len;j++)
-{
-if(code[i][j]!=0) printf("%c",code[i][j]);
-}
-}
-printf("\n");
-}
-## OUTPUT:
-OUTPUT:
-Enter a Secret Message wearediscovered
-Enter number of rails 2
-waeicvrderdsoee
-## RESULT:
-The program is executed successfully
